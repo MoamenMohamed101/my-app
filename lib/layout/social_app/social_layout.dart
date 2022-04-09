@@ -67,45 +67,4 @@ class SocialLayout extends StatelessWidget {
     );
   }
 }
-// Column(
-//                 children: [
-//                   if (!FirebaseAuth.instance.currentUser!.emailVerified == true)
-//                     Container(
-//                       color: Colors.amber.withOpacity(.6),
-//                       child: Padding(
-//                         padding: const EdgeInsets.symmetric(horizontal: 20),
-//                         child: Row(
-//                           children: [
-//                             const Icon(Icons.info_outline),
-//                             const SizedBox(
-//                               width: 15,
-//                             ),
-//                             const Expanded(
-//                               child: Text('please verify your email'),
-//                             ),
-//                             const SizedBox(
-//                               width: 15,
-//                             ),
-//                             TextButton(
-//                               onPressed: () {
-//                                 FirebaseAuth.instance.currentUser!
-//                                     .sendEmailVerification()
-//                                     .then((value) {
-//                                   showtost(
-//                                       masg: 'cheak your email',
-//                                       state: ToastStates.SUCCESS);
-//                                 }).catchError((error) {
-//                                   print(error);
-//                                 });
-//                               },
-//                               child: const Text(
-//                                 'send',
-//                                 style: TextStyle(fontSize: 20),
-//                               ),
-//                             )
-//                           ],
-//                         ),
-//                       ),
-//                     ),
-//                 ],
-//               );
+
