@@ -1,6 +1,5 @@
 import 'package:first_app/layout/social_app/cubit/cubit.dart';
 import 'package:first_app/layout/social_app/cubit/states.dart';
-import 'package:first_app/modules/social_app/chats/chats_screen.dart';
 import 'package:first_app/modules/social_app/new_post/new_post.dart';
 import 'package:first_app/shared/components/components.dart';
 import 'package:first_app/shared/styles/icon_broken.dart';

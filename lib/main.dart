@@ -1,25 +1,22 @@
 import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:first_app/layout/news_app/Cubit/cubit.dart';
 import 'package:first_app/layout/shop_app/cubit/cubit.dart';
-import 'package:first_app/layout/shop_app/shop_layout.dart';
 import 'package:first_app/layout/social_app/cubit/states.dart';
 import 'package:first_app/layout/social_app/social_layout.dart';
-import 'package:first_app/modules/shop_app/shop_app_login/shop_app_login.dart';
 import 'package:first_app/modules/social_app/social_login_screen/social_login_screen.dart';
-import 'package:first_app/shared/components/components.dart';
+import 'package:first_app/shared/bloc_obcerved.dart';
 import 'package:first_app/shared/components/constants.dart';
 import 'package:first_app/shared/cubit/cubit.dart';
 import 'package:first_app/shared/cubit/states.dart';
+import 'package:first_app/shared/network/remote/cash_helper.dart';
+import 'package:first_app/shared/network/remote/dio_helper.dart';
 import 'package:first_app/shared/styles/Themes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:first_app/layout/news_app/Cubit/cubit.dart';
-import 'package:first_app/shared/bloc_obcerved.dart';
-import 'package:first_app/shared/network/remote/cash_helper.dart';
-import 'package:first_app/shared/network/remote/dio_helper.dart';
+
 import 'layout/social_app/cubit/cubit.dart';
-import 'modules/shop_app/on_bording/on_boarding_screen.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
