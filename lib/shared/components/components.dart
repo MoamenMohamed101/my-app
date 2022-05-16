@@ -1,4 +1,5 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:first_app/shared/styles/icon_broken.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -128,6 +129,7 @@ BuildTaskItem(Map Model, context) => Dismissible(
         ),
       ),
     );
+
 BiuldArticalItem(articles, context) => InkWell(
       onTap: () {
         NavigateTo(
@@ -180,6 +182,7 @@ BiuldArticalItem(articles, context) => InkWell(
         ),
       ),
     );
+
 Widget articalBuilder(list, context, {isSearch = false}) => ConditionalBuilder(
       condition: list.length > 0,
       builder: (BuildContext context) => ListView.separated(
@@ -213,6 +216,7 @@ void NavigateAndFinsh({context, widget}) => Navigator.pushAndRemoveUntil(
       builder: (context) => widget,
     ),
     (Route<dynamic> route) => false);
+
 void showtost({@required String? masg, @required ToastStates? state}) =>
     Fluttertoast.showToast(
       msg: masg!,
@@ -223,8 +227,11 @@ void showtost({@required String? masg, @required ToastStates? state}) =>
       textColor: Colors.white,
       fontSize: 16.0,
     );
+
 enum ToastStates { SUCCESS, ERROR, waring }
+
 Color? color;
+
 Color? chooseToastcolor(ToastStates state) {
   switch (state) {
     case ToastStates.SUCCESS:
@@ -239,3 +246,19 @@ Color? chooseToastcolor(ToastStates state) {
   }
   return color;
 }
+
+defultAppBar({
+  @required BuildContext? context,
+  String? text,
+  List<Widget>? actions,
+}) =>
+    AppBar(
+      leading: IconButton(
+        onPressed: () {
+          Navigator.pop(context!);
+        },
+        icon: const Icon(IconBroken.Arrow___Left),
+      ),
+      actions: actions,
+      title: Text(text!),
+    );
