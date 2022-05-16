@@ -4,6 +4,7 @@ import 'package:first_app/layout/social_app/cubit/states.dart';
 import 'package:first_app/models/social_app/social_user_model.dart';
 import 'package:first_app/modules/social_app/chats/chats_screen.dart';
 import 'package:first_app/modules/social_app/feeds/feeds_screen.dart';
+import 'package:first_app/modules/social_app/new_post/new_post.dart';
 import 'package:first_app/modules/social_app/settings/settings_screen.dart';
 import 'package:first_app/modules/social_app/users/users_screen.dart';
 import 'package:first_app/shared/components/constants.dart';
@@ -28,7 +29,11 @@ class SocialCubit extends Cubit<SocialStates> {
       emit(SocialSuccessStates());
     }).catchError((error) {
       print(error.toString());
-      emit(SocialErrorStates(error.toString()));
+      emit(
+        SocialErrorStates(
+          error.toString(),
+        ),
+      );
     });
   }
 
@@ -36,21 +41,23 @@ class SocialCubit extends Cubit<SocialStates> {
   List<Widget> screens = [
     const FeedsScreen(),
     const ChatsScreen(),
+    const NewPost(),
     const UsersScreen(),
     const SettingsScreen(),
   ];
   List<String> titles = [
     'News Feeds',
     'Chats',
+    'Post',
     'Users',
     'Settings',
   ];
 
   void changeBottomNav(int index) {
-    if(index == 2)
+    if (index == 2)
       emit(SocialNewPostStates());
     else
-    currentIndex = index;
+      currentIndex = index;
     emit(SocialChangeBottomNavStates());
   }
 }

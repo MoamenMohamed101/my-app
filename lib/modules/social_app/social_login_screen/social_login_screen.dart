@@ -15,6 +15,7 @@ class SocialLoginScreen extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -27,11 +28,9 @@ class SocialLoginScreen extends StatelessWidget {
           } else {
             if (state is SocialLoginSucsessStates) {
               showtost(masg: 'SUCCESS', state: ToastStates.SUCCESS);
-              NavigateTo(widget: const SocialLayout() , context: context);
-              CashHelper.savedata(
-                  key: 'uId', value:state.uid)!
-                  .then(
-                    (value) {
+              NavigateTo(widget: const SocialLayout(), context: context);
+              CashHelper.savedata(key: 'uId', value: state.uid)!.then(
+                (value) {
                   NavigateAndFinsh(
                     context: context,
                     widget: const SocialLayout(),

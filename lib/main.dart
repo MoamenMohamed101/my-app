@@ -15,7 +15,6 @@ import 'package:first_app/shared/styles/Themes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'layout/social_app/cubit/cubit.dart';
 
 main() async {
@@ -39,9 +38,9 @@ main() async {
   // } else {
   //   widget = const OnBoardingScreen();
   // }
-  if(uId != null){
+  if (uId != null) {
     widget = const SocialLayout();
-  }else{
+  } else {
     widget = SocialLoginScreen();
   }
   runApp(
@@ -55,6 +54,7 @@ main() async {
 class MyApp extends StatelessWidget {
   final bool? isDark;
   final Widget? startwidget;
+
   MyApp({this.isDark, this.startwidget});
 
   @override
@@ -71,10 +71,15 @@ class MyApp extends StatelessWidget {
               Apployout()..changeApptheme(fromShared: isDark),
         ),
         BlocProvider(
-          create: (BuildContext context) => ShopCubit()..getHomeData()..getCategories()..getFavorites()..getUserData(),
+          create: (BuildContext context) => ShopCubit()
+            ..getHomeData()
+            ..getCategories()
+            ..getFavorites()
+            ..getUserData(),
         ),
         BlocProvider(
-          create: (BuildContext context) => SocialCubit(SocialInitialStates)..getUserData(),
+          create: (BuildContext context) =>
+              SocialCubit(SocialInitialStates)..getUserData(),
         ),
       ],
       child: BlocConsumer<Apployout, Applayoutstates>(
