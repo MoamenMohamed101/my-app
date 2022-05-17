@@ -87,7 +87,7 @@ class SearchScreen extends StatelessWidget {
             alignment: AlignmentDirectional.bottomStart,
             children: [
               Image(
-                image: NetworkImage(data.image!),
+                image: NetworkImage(data.profileImage!),
                 width: 120,
                 height: 120,
               ),

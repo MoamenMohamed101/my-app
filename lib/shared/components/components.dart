@@ -257,8 +257,9 @@ defultAppBar({
         onPressed: () {
           Navigator.pop(context!);
         },
-        icon: const Icon(IconBroken.Arrow___Left),
+        icon: const Icon(IconBroken.Arrow___Left_2,color: Colors.black),
       ),
+      titleSpacing: 5.0,
       actions: actions,
       title: Text(text!),
     );

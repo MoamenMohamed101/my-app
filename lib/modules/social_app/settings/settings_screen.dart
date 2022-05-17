@@ -1,5 +1,7 @@
 import 'package:first_app/layout/social_app/cubit/cubit.dart';
 import 'package:first_app/layout/social_app/cubit/states.dart';
+import 'package:first_app/modules/social_app/edit_profile/edit_post.dart';
+import 'package:first_app/shared/components/components.dart';
 import 'package:first_app/shared/styles/icon_broken.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -86,12 +88,12 @@ class SettingsScreen extends StatelessWidget {
                       child: InkWell(
                         child: Column(
                           children: [
-                            Text('Posts',
+                            Text('265',
                                 style: Theme.of(context).textTheme.subtitle2),
                             const SizedBox(
                               height: 10,
                             ),
-                            Text('100',
+                            Text('photos',
                                 style: Theme.of(context).textTheme.caption),
                           ],
                         ),
@@ -102,12 +104,12 @@ class SettingsScreen extends StatelessWidget {
                       child: InkWell(
                         child: Column(
                           children: [
-                            Text('Posts',
+                            Text('10k',
                                 style: Theme.of(context).textTheme.subtitle2),
                             const SizedBox(
                               height: 10,
                             ),
-                            Text('100',
+                            Text('followers',
                                 style: Theme.of(context).textTheme.caption),
                           ],
                         ),
@@ -118,12 +120,12 @@ class SettingsScreen extends StatelessWidget {
                       child: InkWell(
                         child: Column(
                           children: [
-                            Text('Posts',
+                            Text('64',
                                 style: Theme.of(context).textTheme.subtitle2),
                             const SizedBox(
                               height: 10,
                             ),
-                            Text('100',
+                            Text('followings',
                                 style: Theme.of(context).textTheme.caption),
                           ],
                         ),
@@ -141,10 +143,14 @@ class SettingsScreen extends StatelessWidget {
                       child: const Text('Add Photos'),
                     ),
                   ),
-                  SizedBox(width: 10,),
+                  const SizedBox(
+                    width: 10,
+                  ),
                   OutlinedButton(
-                    onPressed: () {},
-                    child: const Icon(IconBroken.Edit,size: 16),
+                    onPressed: () {
+                      NavigateTo(context: context, widget: EditPost());
+                    },
+                    child: const Icon(IconBroken.Edit, size: 16),
                   ),
                 ],
               )
