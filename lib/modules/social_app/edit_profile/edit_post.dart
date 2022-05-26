@@ -1,6 +1,3 @@
-import 'dart:io';
-
-// import 'dart:core';
 import 'package:first_app/layout/social_app/cubit/cubit.dart';
 import 'package:first_app/layout/social_app/cubit/states.dart';
 import 'package:first_app/shared/components/components.dart';
@@ -8,13 +5,11 @@ import 'package:first_app/shared/styles/icon_broken.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 
 class EditPost extends StatelessWidget {
   EditPost({Key? key}) : super(key: key);
   var nameController = TextEditingController();
   var bioController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SocialCubit, SocialStates>(
@@ -127,7 +122,7 @@ class EditPost extends StatelessWidget {
                     prefixIcon: Icon(IconBroken.User),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 TextFormField(
