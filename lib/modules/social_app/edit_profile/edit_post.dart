@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:first_app/layout/social_app/cubit/cubit.dart';
 import 'package:first_app/layout/social_app/cubit/states.dart';
 import 'package:first_app/shared/components/components.dart';
@@ -17,13 +20,18 @@ class EditPost extends StatelessWidget {
       builder: (BuildContext context, Object? state) {
         var userModel = SocialCubit.get(context).socialUserModel;
         var profileImage = SocialCubit.get(context).profileImage;
+        var coverImage = SocialCubit.get(context).coverImage;
+        nameController.text = userModel!.name!;
+        bioController.text = userModel.bio!;
         return Scaffold(
           appBar: defultAppBar(
             context: context,
             text: 'Edit Profile',
             actions: [
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+
+                },
                 child: const Text(
                   'UPDATE',
                   style: TextStyle(fontSize: 20),
@@ -57,7 +65,9 @@ class EditPost extends StatelessWidget {
                                   topLeft: Radius.circular(4),
                                 ),
                                 image: DecorationImage(
-                                  image: NetworkImage('${userModel!.cover}'),
+                                  image: coverImage == null
+                                      ? NetworkImage('${userModel.cover}')
+                                      : FileImage(coverImage) as ImageProvider,
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -67,7 +77,9 @@ class EditPost extends StatelessWidget {
                               child: CircleAvatar(
                                 radius: 20,
                                 child: IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    SocialCubit.get(context).getCoverImage();
+                                  },
                                   icon: const Icon(IconBroken.Camera, size: 25),
                                 ),
                               ),
@@ -89,12 +101,12 @@ class EditPost extends StatelessWidget {
                                     : FileImage(profileImage) as ImageProvider),
                           ),
                           CircleAvatar(
-                            radius: 15,
+                            radius: 16,
                             child: IconButton(
                               onPressed: () {
                                 SocialCubit.get(context).getProfileImage();
                               },
-                              icon: const Icon(IconBroken.Camera, size: 17),
+                              icon: const Icon(IconBroken.Camera, size: 17.5),
                             ),
                           ),
                         ],

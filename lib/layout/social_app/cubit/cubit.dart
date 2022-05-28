@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:first_app/layout/social_app/cubit/states.dart';
@@ -13,6 +12,7 @@ import 'package:first_app/shared/components/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class SocialCubit extends Cubit<SocialStates> {
   SocialCubit(initialState) : super(SocialInitialStates());
@@ -81,4 +81,39 @@ class SocialCubit extends Cubit<SocialStates> {
       );
     }
   }
+
+  File? coverImage;
+
+  Future getCoverImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      coverImage = File(pickedFile.path);
+      emit(
+        SocialCoverImagePickedSuccessStates(),
+      );
+    } else {
+      print('No image selected');
+      emit(
+        SocialCoverImagePickedErrorStates(),
+      );
+    }
+  }
+
+  void uploadProfileImage() {
+    firebase_storage.FirebaseStorage.instance
+        .ref()
+        .child(
+          'users/${Uri.file(profileImage!.path).pathSegments.last}',
+        )
+        .putFile(profileImage!)
+        .then((value) {
+      value.ref.getDownloadURL().then((value) {
+        print(value);
+      }).catchError(() {});
+    }).catchError((error) {
+      print(error);
+    });
+  }
+
+
 }

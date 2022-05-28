@@ -153,7 +153,7 @@ class SettingsScreen extends StatelessWidget {
                     child: const Icon(IconBroken.Edit, size: 16),
                   ),
                 ],
-              )
+              ),
             ],
           ),
         );
