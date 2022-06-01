@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:first_app/layout/news_app/Cubit/cubit.dart';
 import 'package:first_app/layout/shop_app/cubit/cubit.dart';
@@ -20,6 +21,7 @@ import 'layout/social_app/cubit/cubit.dart';
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  // await FirebaseAppCheck.instance.activate(webRecaptchaSiteKey: 'abcdefghijklmnopqrstuvwxy-1234567890abcd');
   Bloc.observer = MyBlocObserver();
   Diohelper.inti();
   await CashHelper.inti();
@@ -99,3 +101,4 @@ class MyApp extends StatelessWidget {
 //https://newsapi.org/v2/top-headlines?country=eg&category=business&apikey=65f7f556ec76449fa7dc7c0069f040ca
 //fontSize: 20, fontWeight: FontWeight.bold
 //https://newsapi.org/v2/everything?q=tesla&apiKey=c791f2ce637147d2aa85013679d636f1
+// allow read, write: if false;

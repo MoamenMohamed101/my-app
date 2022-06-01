@@ -13,16 +13,19 @@ class EditPost extends StatelessWidget {
   EditPost({Key? key}) : super(key: key);
   var nameController = TextEditingController();
   var bioController = TextEditingController();
+  var phoneController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (BuildContext context, state) {},
       builder: (BuildContext context, Object? state) {
-        var userModel = SocialCubit.get(context).socialUserModel;
+        var userModel = SocialCubit.get(context).userModel;
         var profileImage = SocialCubit.get(context).profileImage;
         var coverImage = SocialCubit.get(context).coverImage;
         nameController.text = userModel!.name!;
         bioController.text = userModel.bio!;
+        phoneController.text = userModel.phone!;
         return Scaffold(
           appBar: defultAppBar(
             context: context,
@@ -30,7 +33,10 @@ class EditPost extends StatelessWidget {
             actions: [
               TextButton(
                 onPressed: () {
-
+                  SocialCubit.get(context).updateUserImage(
+                      name: nameController.text,
+                      phone: phoneController.text,
+                      bio: bioController.text);
                 },
                 child: const Text(
                   'UPDATE',
@@ -44,117 +50,145 @@ class EditPost extends StatelessWidget {
           ),
           body: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                Container(
-                  height: 225,
-                  child: Stack(
-                    alignment: AlignmentDirectional.bottomCenter,
-                    children: [
-                      Align(
-                        alignment: AlignmentDirectional.topCenter,
-                        child: Stack(
-                          alignment: AlignmentDirectional.topEnd,
-                          children: [
-                            Container(
-                              width: double.infinity,
-                              height: 180,
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.only(
-                                  topRight: Radius.circular(4),
-                                  topLeft: Radius.circular(4),
-                                ),
-                                image: DecorationImage(
-                                  image: coverImage == null
-                                      ? NetworkImage('${userModel.cover}')
-                                      : FileImage(coverImage) as ImageProvider,
-                                  fit: BoxFit.cover,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  if(state is SocialUserUpdateLoadingStates)
+                   LinearProgressIndicator(),
+                  if(state is SocialUserUpdateLoadingStates)
+                   const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    height: 225,
+                    child: Stack(
+                      alignment: AlignmentDirectional.bottomCenter,
+                      children: [
+                        Align(
+                          alignment: AlignmentDirectional.topCenter,
+                          child: Stack(
+                            alignment: AlignmentDirectional.topEnd,
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                height: 180,
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.only(
+                                    topRight: Radius.circular(4),
+                                    topLeft: Radius.circular(4),
+                                  ),
+                                  image: DecorationImage(
+                                    image: coverImage == null
+                                        ? NetworkImage('${userModel.cover}')
+                                        : FileImage(coverImage) as ImageProvider,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 5, top: 5),
-                              child: CircleAvatar(
-                                radius: 20,
-                                child: IconButton(
-                                  onPressed: () {
-                                    SocialCubit.get(context).getCoverImage();
-                                  },
-                                  icon: const Icon(IconBroken.Camera, size: 25),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 5, top: 5),
+                                child: CircleAvatar(
+                                  radius: 20,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      SocialCubit.get(context).getCoverImage();
+                                    },
+                                    icon: const Icon(IconBroken.Camera, size: 25),
+                                  ),
                                 ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Stack(
+                          alignment: AlignmentDirectional.bottomEnd,
+                          children: [
+                            CircleAvatar(
+                              radius: 54,
+                              backgroundColor:
+                                  Theme.of(context).scaffoldBackgroundColor,
+                              child: CircleAvatar(
+                                  radius: 50,
+                                  backgroundImage: profileImage == null
+                                      ? NetworkImage('${userModel.image}')
+                                      : FileImage(profileImage) as ImageProvider),
+                            ),
+                            CircleAvatar(
+                              radius: 16,
+                              child: IconButton(
+                                onPressed: () {
+                                  SocialCubit.get(context).getProfileImage();
+                                },
+                                icon: const Icon(IconBroken.Camera, size: 17.5),
                               ),
                             ),
                           ],
                         ),
-                      ),
-                      Stack(
-                        alignment: AlignmentDirectional.bottomEnd,
-                        children: [
-                          CircleAvatar(
-                            radius: 54,
-                            backgroundColor:
-                                Theme.of(context).scaffoldBackgroundColor,
-                            child: CircleAvatar(
-                                radius: 50,
-                                backgroundImage: profileImage == null
-                                    ? NetworkImage('${userModel.image}')
-                                    : FileImage(profileImage) as ImageProvider),
-                          ),
-                          CircleAvatar(
-                            radius: 16,
-                            child: IconButton(
-                              onPressed: () {
-                                SocialCubit.get(context).getProfileImage();
-                              },
-                              icon: const Icon(IconBroken.Camera, size: 17.5),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'name is empty';
-                    }
-                    return null;
-                  },
-                  controller: nameController,
-                  keyboardType: TextInputType.emailAddress,
-                  onFieldSubmitted: (value) {},
-                  onChanged: (value) {},
-                  decoration: const InputDecoration(
-                    labelText: 'Name',
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(IconBroken.User),
+                  const SizedBox(
+                    height: 20,
                   ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'bio is empty';
-                    }
-                    return null;
-                  },
-                  controller: bioController,
-                  keyboardType: TextInputType.emailAddress,
-                  onFieldSubmitted: (value) {},
-                  onChanged: (value) {},
-                  decoration: const InputDecoration(
-                    labelText: 'Bio',
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(IconBroken.Info_Circle),
+                  TextFormField(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'name is empty';
+                      }
+                      return null;
+                    },
+                    controller: nameController,
+                    keyboardType: TextInputType.emailAddress,
+                    onFieldSubmitted: (value) {},
+                    onChanged: (value) {},
+                    decoration: const InputDecoration(
+                      labelText: 'Name',
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(IconBroken.User),
+                    ),
                   ),
-                ),
-              ],
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TextFormField(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'bio is empty';
+                      }
+                      return null;
+                    },
+                    controller: bioController,
+                    keyboardType: TextInputType.emailAddress,
+                    onFieldSubmitted: (value) {},
+                    onChanged: (value) {},
+                    decoration: const InputDecoration(
+                      labelText: 'Bio',
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(IconBroken.Info_Circle),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TextFormField(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'phone is empty';
+                      }
+                      return null;
+                    },
+                    controller: phoneController,
+                    keyboardType: TextInputType.phone,
+                    onFieldSubmitted: (value) {},
+                    onChanged: (value) {},
+                    decoration: const InputDecoration(
+                      labelText: 'phone',
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(IconBroken.Call),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         );

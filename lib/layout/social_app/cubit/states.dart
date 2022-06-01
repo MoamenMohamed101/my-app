@@ -23,3 +23,15 @@ class SocialErrorStates extends SocialStates {
 
   SocialErrorStates(this.error);
 }
+
+class SocialUploadProfileImageSuccessStates extends SocialStates {}
+
+class SocialUploadProfileImageErrorStates extends SocialStates {}
+
+class SocialUploadCoverImageSuccessStates extends SocialStates {}
+
+class SocialUploadCoverImageErrorStates extends SocialStates {}
+
+class SocialUserUpdateErrorStates extends SocialStates {}
+
+class SocialUserUpdateLoadingStates extends SocialStates {}

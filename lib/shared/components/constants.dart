@@ -1,6 +1,6 @@
 import 'package:first_app/modules/shop_app/shop_app_login/shop_app_login.dart';
 import 'package:first_app/shared/network/remote/cash_helper.dart';
-
+import '../../layout/social_app/cubit/cubit.dart';
 import 'components.dart';
 
 void signOut(context) {

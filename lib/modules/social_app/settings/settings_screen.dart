@@ -15,7 +15,7 @@ class SettingsScreen extends StatelessWidget {
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (BuildContext context, state) {},
       builder: (BuildContext context, Object? state) {
-        var userModel = SocialCubit.get(context).socialUserModel;
+        var userModel = SocialCubit.get(context).userModel;
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
