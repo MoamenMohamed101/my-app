@@ -7,5 +7,6 @@ class Usermodel {
   String? name;
   @required
   String? phone;
+
   Usermodel({this.id, this.name, this.phone});
 }

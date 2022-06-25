@@ -33,7 +33,11 @@ class EditPost extends StatelessWidget {
             actions: [
               TextButton(
                 onPressed: () {
-                  SocialCubit.get(context).updateUserImage(
+                  // SocialCubit.get(context).updateUserImage(
+                  //     name: nameController.text,
+                  //     phone: phoneController.text,
+                  //     bio: bioController.text);
+                  SocialCubit.get(context).updateUser(
                       name: nameController.text,
                       phone: phoneController.text,
                       bio: bioController.text);
@@ -53,12 +57,12 @@ class EditPost extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  if(state is SocialUserUpdateLoadingStates)
-                   LinearProgressIndicator(),
-                  if(state is SocialUserUpdateLoadingStates)
-                   const SizedBox(
-                    height: 10,
-                  ),
+                  if (state is SocialUserUpdateLoadingStates)
+                    const LinearProgressIndicator(),
+                  if (state is SocialUserUpdateLoadingStates)
+                    const SizedBox(
+                      height: 10,
+                    ),
                   Container(
                     height: 225,
                     child: Stack(
@@ -80,20 +84,23 @@ class EditPost extends StatelessWidget {
                                   image: DecorationImage(
                                     image: coverImage == null
                                         ? NetworkImage('${userModel.cover}')
-                                        : FileImage(coverImage) as ImageProvider,
+                                        : FileImage(coverImage)
+                                            as ImageProvider,
                                     fit: BoxFit.cover,
                                   ),
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(right: 5, top: 5),
+                                padding:
+                                    const EdgeInsets.only(right: 5, top: 5),
                                 child: CircleAvatar(
                                   radius: 20,
                                   child: IconButton(
                                     onPressed: () {
                                       SocialCubit.get(context).getCoverImage();
                                     },
-                                    icon: const Icon(IconBroken.Camera, size: 25),
+                                    icon:
+                                        const Icon(IconBroken.Camera, size: 25),
                                   ),
                                 ),
                               ),
@@ -111,7 +118,8 @@ class EditPost extends StatelessWidget {
                                   radius: 50,
                                   backgroundImage: profileImage == null
                                       ? NetworkImage('${userModel.image}')
-                                      : FileImage(profileImage) as ImageProvider),
+                                      : FileImage(profileImage)
+                                          as ImageProvider),
                             ),
                             CircleAvatar(
                               radius: 16,
@@ -130,6 +138,89 @@ class EditPost extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
+                  if (SocialCubit.get(context).coverImage != null ||
+                      SocialCubit.get(context).profileImage != null)
+                    Row(
+                      children: [
+                        if (SocialCubit.get(context).profileImage != null)
+                          Expanded(
+                            child: Column(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.blue,
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  width: double.infinity,
+                                  height: 50,
+                                  child: MaterialButton(
+                                    onPressed: () {
+                                      SocialCubit.get(context)
+                                          .uploadProfileImage(
+                                              name: nameController.text,
+                                              phone: phoneController.text,
+                                              bio: bioController.text);
+                                    },
+                                    child: const Text(
+                                      'upload profile image',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 14.5),
+                                    ),
+                                  ),
+                                ),
+                                if(state is SocialUserUpdateLoadingStates)
+                                 const SizedBox(
+                                  height: 5,
+                                ),
+                                if(state is SocialUserUpdateLoadingStates)
+                                 const LinearProgressIndicator(),
+                              ],
+                            ),
+                          ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        if (SocialCubit.get(context).coverImage != null)
+                          Expanded(
+                            child: Column(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.blue,
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  width: double.infinity,
+                                  height: 50,
+                                  child: MaterialButton(
+                                    onPressed: () {
+                                      SocialCubit.get(context).uploadCoverImage(
+                                          name: nameController.text,
+                                          phone: phoneController.text,
+                                          bio: bioController.text);
+                                    },
+                                    child: const Text(
+                                      'upload cover image',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 14.5),
+                                    ),
+                                  ),
+                                ),
+                                if(state is SocialUserUpdateLoadingStates)
+                                 const SizedBox(
+                                  height: 5,
+                                ),
+                                if(state is SocialUserUpdateLoadingStates)
+                                 const LinearProgressIndicator(),
+                              ],
+                            ),
+                          ),
+                      ],
+                    ),
+                  if (SocialCubit.get(context).coverImage != null ||
+                      SocialCubit.get(context).profileImage != null)
+                    const SizedBox(
+                      height: 20,
+                    ),
                   TextFormField(
                     validator: (value) {
                       if (value!.isEmpty) {

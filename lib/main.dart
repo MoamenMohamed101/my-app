@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:first_app/layout/news_app/Cubit/cubit.dart';
 import 'package:first_app/layout/shop_app/cubit/cubit.dart';
@@ -21,7 +20,6 @@ import 'layout/social_app/cubit/cubit.dart';
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  // await FirebaseAppCheck.instance.activate(webRecaptchaSiteKey: 'abcdefghijklmnopqrstuvwxy-1234567890abcd');
   Bloc.observer = MyBlocObserver();
   Diohelper.inti();
   await CashHelper.inti();
