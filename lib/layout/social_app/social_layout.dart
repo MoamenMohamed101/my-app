@@ -17,7 +17,7 @@ class SocialLayout extends StatelessWidget {
         if(state is SocialNewPostStates){
           NavigateTo(
             context: context,
-            widget: const NewPost()
+            widget: NewPost()
           );
         }
       },

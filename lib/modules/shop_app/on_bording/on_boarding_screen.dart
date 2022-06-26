@@ -10,6 +10,7 @@ class OnBoarding {
   String? image;
   String? titel;
   String? body;
+
   OnBoarding(this.image, this.titel, this.body);
 }
 
@@ -32,6 +33,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   var controller = PageController();
   bool islast = false;
+
   void onsubmit() {
     CashHelper.savedata(key: 'onBoarding', value: true)!.then((value) {
       if (value == true) {
@@ -54,7 +56,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               'Skip',
               style: TextStyle(fontSize: 20),
             ),
-          )
+          ),
         ],
       ),
       body: Padding(
