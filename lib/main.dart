@@ -25,8 +25,8 @@ main() async {
   await CashHelper.inti();
   Widget? widget;
   bool? isDark = CashHelper.getdata(key: 'isDark');
-  bool? onBoarding = CashHelper.getdata(key: 'onBoarding');
-  print('this on moamen : $onBoarding');
+  // bool? onBoarding = CashHelper.getdata(key: 'onBoarding');
+  // print('this on moamen : $onBoarding');
   //token = CashHelper.getdata(key: 'token');
   uId = CashHelper.getdata(key: 'uId');
   //print(token);
@@ -80,7 +80,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (BuildContext context) =>
-              SocialCubit(SocialInitialStates)..getUserData(),
+              SocialCubit(SocialInitialStates)..getUserData()..getPosts(),
         ),
       ],
       child: BlocConsumer<Apployout, Applayoutstates>(
