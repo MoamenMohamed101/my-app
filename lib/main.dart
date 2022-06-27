@@ -25,7 +25,8 @@ main() async {
   await CashHelper.inti();
   Widget? widget;
   bool? isDark = CashHelper.getdata(key: 'isDark');
-  //bool? onBoarding = CashHelper.getdata(key: 'onBoarding');
+  bool? onBoarding = CashHelper.getdata(key: 'onBoarding');
+  print('this on moamen : $onBoarding');
   //token = CashHelper.getdata(key: 'token');
   uId = CashHelper.getdata(key: 'uId');
   //print(token);
