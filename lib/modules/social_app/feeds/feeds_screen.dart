@@ -15,7 +15,7 @@ class FeedsScreen extends StatelessWidget {
     return BlocConsumer<SocialCubit, SocialStates>(
       builder: (BuildContext context, state) {
         return ConditionalBuilder(
-          condition: SocialCubit.get(context).posts.isNotEmpty,
+          condition: SocialCubit.get(context).posts.isNotEmpty && SocialCubit.get(context).userModel != null,
           builder: (BuildContext context) => SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Column(
@@ -51,7 +51,7 @@ class FeedsScreen extends StatelessWidget {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) => builderItem(
-                        SocialCubit.get(context).posts[index], context),
+                        SocialCubit.get(context).posts[index], context, index),
                     separatorBuilder: (context, index) =>
                         const SizedBox(height: 10),
                     itemCount: SocialCubit.get(context).posts.length),
@@ -68,7 +68,7 @@ class FeedsScreen extends StatelessWidget {
     );
   }
 
-  builderItem(PostModel model, context) => Card(
+  builderItem(PostModel model, context,index) => Card(
         margin: const EdgeInsets.symmetric(horizontal: 8.0),
         elevation: 5,
         clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -206,13 +206,13 @@ class FeedsScreen extends StatelessWidget {
                         child: InkWell(
                           onTap: () {},
                           child: Row(
-                            children: const [
+                            children: [
                               Icon(IconBroken.Heart,
                                   size: 20, color: Colors.red),
                               SizedBox(
                                 width: 5,
                               ),
-                              Text('0'),
+                              Text('${SocialCubit.get(context).likes[index]}'),
                             ],
                           ),
                         ),
@@ -272,7 +272,9 @@ class FeedsScreen extends StatelessWidget {
                     ),
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      SocialCubit.get(context).likePosts(SocialCubit.get(context).postId[index]);
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: const [

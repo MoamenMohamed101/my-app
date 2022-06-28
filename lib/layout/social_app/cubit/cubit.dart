@@ -5,6 +5,7 @@ import 'package:first_app/layout/social_app/cubit/states.dart';
 import 'package:first_app/models/social_app/post_model.dart';
 import 'package:first_app/models/social_app/post_model.dart';
 import 'package:first_app/models/social_app/social_user_model.dart';
+import 'package:first_app/models/user/user_model.dart';
 import 'package:first_app/modules/social_app/chats/chats_screen.dart';
 import 'package:first_app/modules/social_app/feeds/feeds_screen.dart';
 import 'package:first_app/modules/social_app/new_post/new_post.dart';
@@ -207,11 +208,13 @@ class SocialCubit extends Cubit<SocialStates> {
   }
 
   File? postImage;
+
   // remove post image
   void removePostImage() {
     postImage = null;
     emit(SocialPostImageRemovedStates());
   }
+
   Future getPostImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
     if (pickedFile != null) {
@@ -277,17 +280,52 @@ class SocialCubit extends Cubit<SocialStates> {
       emit(SocialCreatePostErrorStates());
     });
   }
+
   //To get the posts from the firebase firestore
   List<PostModel> posts = [];
-  void getPosts(){
+  List<String?> postId = [];
+  List<int?> likes = [];
+
+  void getPosts() {
     emit(SocialGetPostsLoadingStates());
+    FirebaseFirestore.instance.collection('posts').get().then((value) {
+      value.docs.forEach((element) {
+        element.reference.collection('likes').get().then((value) {
+          likes.add(value.docs.length);
+          postId.add(element.id);
+          posts.add(PostModel.fromJson(element.data()));
+        });
+      });
+      emit(SocialGetPostsSuccessStates());
+    }).catchError((error) {
+      print(error);
+      emit(SocialGetPostsErrorStates());
+    });
+  }
+
+  //To send likes to the firebase firestore
+  void likePosts(String? postId) {
     FirebaseFirestore.instance
         .collection('posts')
-        .get()
-        .then((value) {
-          value.docs.forEach((element) {
-            posts.add(PostModel.fromJson(element.data()));
-          });
+        .doc(postId)
+        .collection('likes')
+        .doc(userModel!.uId)
+        .set({
+      'like': true,
+    }).then((value) {
+      emit(SocialLikePostsSuccessStates());
+    }).catchError((error) {
+      print(error);
+      emit(SocialLikePostsErrorStates());
+    });
+  }
+  List<SocialUserModel> users = [];
+  void getUsers() {
+    emit(SocialGetPostsLoadingStates());
+    FirebaseFirestore.instance.collection('users').get().then((value) {
+      value.docs.forEach((element) {
+        users.add(SocialUserModel.fromJson(element.data()));
+      });
       emit(SocialGetPostsSuccessStates());
     }).catchError((error) {
       print(error);

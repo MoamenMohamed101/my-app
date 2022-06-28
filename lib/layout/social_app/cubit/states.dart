@@ -6,9 +6,19 @@ class SocialLoadingStates extends SocialStates {}
 
 class SocialSuccessStates extends SocialStates {}
 
+class SocialGetAllUsersLoadingStates extends SocialStates {}
+
+class SocialGetAllUsersSuccessStates extends SocialStates {}
+
+class SocialGetAllUsersErrorStates extends SocialStates {}
+
 class SocialGetPostsLoadingStates extends SocialStates {}
 
 class SocialGetPostsSuccessStates extends SocialStates {}
+
+class SocialLikePostsErrorStates extends SocialStates {}
+
+class SocialLikePostsSuccessStates extends SocialStates {}
 
 class SocialGetPostsErrorStates extends SocialStates {}
 
