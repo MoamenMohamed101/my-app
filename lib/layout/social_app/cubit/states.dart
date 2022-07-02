@@ -70,5 +70,3 @@ class SocialSendMessagesSuccessStates extends SocialStates {}
 class SocialSendMessagesErrorStates extends SocialStates {}
 
 class SocialGetMessagesSuccessStates extends SocialStates {}
-
-class SocialGetMessagesErrorStates extends SocialStates {}
